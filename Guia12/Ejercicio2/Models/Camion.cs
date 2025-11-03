@@ -71,10 +71,10 @@ namespace Ejercicio2.Models
 
         public int CompareTo(object obj)
         {
-            Auto nuevoAuto = obj as Auto;
-            if(nuevoAuto != null)
+            Camion nuevoCamion = obj as Camion;
+            if(nuevoCamion != null)
             {
-                return this.NroRegistro.CompareTo(nuevoAuto.NroRegistro);
+                return this.NroRegistro.CompareTo(nuevoCamion.NroRegistro);
             }
             return -1;
         }

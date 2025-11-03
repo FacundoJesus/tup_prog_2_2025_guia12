@@ -59,7 +59,8 @@ namespace Ejercicio2.Models
         public Camion BuscarCamion(int nroRegistro)
         {
             Camion camion = new Camion();
-            camion.NroRegistro = n;
+            camion.NroRegistro = nroRegistro;
+
             listaCamiones.Sort();
             int idx = listaCamiones.BinarySearch(camion);
 

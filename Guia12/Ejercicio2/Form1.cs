@@ -149,12 +149,18 @@ namespace Ejercicio2
             if (_nro > 0)
             {
                 Auto auto = sistema.DescargarCamion(_nro);
+
                 while (auto != null) {
+
                     listBox1.Items.Add(auto);
                     listBox2.Items.Remove(auto);
 
                     auto = sistema.DescargarCamion(_nro);
                 }
+            }
+            else
+            {
+                MessageBox.Show("No hay Camion para Descargar");
             }
         }
         
