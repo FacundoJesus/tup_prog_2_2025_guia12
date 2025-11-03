@@ -1,0 +1,3 @@
+DENUNCIA;nroOrden;FechaHora;nroPatente;dni
+CLIENTE;nroOrden;FechaHora;dni;TipoVehiculo
+CLIENTE;3;01-11-2025 14:11;40158729;1
