@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Ejercicio2.Models
 {
     [Serializable]
-    public class Camion
+    public class Camion:IComparable
     {
         private DateTime fecha;
         private int cantidad;
@@ -28,6 +28,7 @@ namespace Ejercicio2.Models
 
         private Stack<Auto> transporte = new Stack<Auto>();
 
+        public Camion() { }
         public Camion(DateTime fecha, int cantidad)
         {
             this.fecha = fecha;
@@ -65,7 +66,17 @@ namespace Ejercicio2.Models
 
         public override string ToString()
         {
-            return $"{this.NroRegistro}_{this.fecha:dd-MM-yyyy}";
+            return $"{this.NroRegistro}_{this.fecha:dd-MM-yyyy HH:MM}";
+        }
+
+        public int CompareTo(object obj)
+        {
+            Auto nuevoAuto = obj as Auto;
+            if(nuevoAuto != null)
+            {
+                return this.NroRegistro.CompareTo(nuevoAuto.NroRegistro);
+            }
+            return -1;
         }
 
 

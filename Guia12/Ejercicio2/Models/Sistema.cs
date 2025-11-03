@@ -56,8 +56,20 @@ namespace Ejercicio2.Models
             }
         }
 
-        private Camion BuscarCamion(int nroRegistro)
+        public Camion BuscarCamion(int nroRegistro)
         {
+            Camion camion = new Camion();
+            camion.NroRegistro = n;
+            listaCamiones.Sort();
+            int idx = listaCamiones.BinarySearch(camion);
+
+            if(idx > -1)
+            {
+                return listaCamiones[idx];
+            }
+            return null;
+
+            /*
             int i = 0;
             int pos = -1;
             
@@ -75,39 +87,7 @@ namespace Ejercicio2.Models
             {
                 camion = listaCamiones[pos];
             }
-            return camion;
-        }
-
-        public void CerrarCamion(int nro)
-        {
-            Camion camionBuscado = BuscarCamion(nro);
-
-            if(camionBuscado != null)
-            {
-                FileStream fs = null;
-                StreamWriter sw = null;
-                try
-                {
-                    string path = camionBuscado.ToString() + ".csv";
-
-                    fs = new FileStream(path, FileMode.Create, FileAccess.Write);
-                    sw = new StreamWriter(fs);
-                    sw.WriteLine("numeroRegistro;modelo");
-                    foreach (string linea in camionBuscado.VerCarga())
-                    {
-                        sw.WriteLine(linea);
-                    }
-                }catch(Exception ex)
-                {
-                    throw new Exception("Error al exportar el Camion");
-                }
-                finally
-                {
-                    if(sw != null) sw.Close();
-                    if (fs != null) fs.Close();
-                }
-
-            }
+            return camion;*/
         }
 
     }

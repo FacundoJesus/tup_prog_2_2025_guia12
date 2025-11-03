@@ -49,13 +49,49 @@ namespace Ejercicio2
         private void btnDescargar_Click(object sender, EventArgs e)
         {
             Auto auto = sistema.DescargarCamion(_nro);
-            listBox1.Items.Add(auto);
+            if (auto != null) {
+                listBox1.Items.Add(auto);
+                MessageBox.Show("Auto descargado!");
+            }
+            else
+            {
+                MessageBox.Show("No hay autos para descargar!");
+            }
         }
 
         private void btnCerrarCamion_Click(object sender, EventArgs e)
         {
-            sistema.CerrarCamion(_nro);
+            Camion camionBuscado = sistema.BuscarCamion(_nro);
+
+            if (camionBuscado != null)
+            {
+                FileStream fs = null;
+                StreamWriter sw = null;
+                try
+                {
+                    string path = camionBuscado.ToString() + ".csv";
+
+                    fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                    sw = new StreamWriter(fs);
+                    sw.WriteLine("numeroRegistro;modelo");
+                    foreach (string linea in camionBuscado.VerCarga())
+                    {
+                        sw.WriteLine(linea);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,"Error al Exportar",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    if (sw != null) sw.Close();
+                    if (fs != null) fs.Close();
+                }
+
+            }
         }
+        
 
         private void btnRecibirCamion_Click(object sender, EventArgs e)
         {
@@ -86,8 +122,8 @@ namespace Ejercicio2
 
                         listBox2.Items.Add(auto);
                     }
-                    Camion camion = new Camion(DateTime.Now, listBox2.Items.Count);
 
+                    Camion camion = new Camion(DateTime.Now, listBox2.Items.Count);
                     sistema.RecibirCamion(camion);
                     _nro = camion.NroRegistro;
                     foreach (Auto auto in listBox2.Items)
